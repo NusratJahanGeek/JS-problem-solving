@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+    .calculator {
+      width: 340px;
+      border: 2px solid #333;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      margin: 100px auto;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+    }
+    .input {
+      width: 90%;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 24px;
+      text-align: right;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+      outline: none;
+      resize: none;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+    }
+    .btn {
+      flex: 1;
+      padding: 15px;
+      margin: 5px;
+      font-size: 20px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f7f7f7;
+      transition: background-color 0.2s;
+    }
+    .btn:hover {
+      background-color: #e1e1e1;
+    }
+    .btn.operator {
+      background-color: #f0ad4e;
+      color: #fff;
+    }
+    .btn.operator:hover {
+      background-color: #eea236;
+    }
+    .btn.c {
+      background-color: #2da518;
+      color: #fff;
+    }
+
+    .btn.c:hover {
+      background-color: rgb(25, 108, 10);
+    }
+    .btn.ac {
+      background-color: #d9534f;
+      color: #fff;
+    }
+
+    .btn.ac:hover {
+      background-color: #c9302c;
+    }
+  </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" class="input" id="display" disabled>
+        <div class="row">
+            <button class="btn ac" onclick="clearDisplay()">AC</button>
+            <button class="btn c" onclick="deleteLastChar()">C</button>
+            <button class="btn operator" onclick="appendToDisplay('%')">%</button>
+            <button class="btn operator" onclick="toggleSign()">±</button>
+         </div>
+        <div class="row">
+          <button class="btn" onclick="appendToDisplay('7')">7</button>
+          <button class="btn" onclick="appendToDisplay('8')">8</button>
+          <button class="btn" onclick="appendToDisplay('9')">9</button>
+          <button class="btn operator" onclick="appendToDisplay('/')">/</button>
+        </div>
+        <div class="row">
+          <button class="btn" onclick="appendToDisplay('4')">4</button>
+          <button class="btn" onclick="appendToDisplay('5')">5</button>
+          <button class="btn" onclick="appendToDisplay('6')">6</button>
+          <button class="btn operator" onclick="appendToDisplay('*')">*</button>
+        </div>
+        <div class="row">
+          <button class="btn" onclick="appendToDisplay('1')">1</button>
+          <button class="btn" onclick="appendToDisplay('2')">2</button>
+          <button class="btn" onclick="appendToDisplay('3')">3</button>
+          <button class="btn operator" onclick="appendToDisplay('-')">-</button>
+        </div>
+        <div class="row">
+          <button class="btn" onclick="appendToDisplay('0')">0</button>
+          <button class="btn operator" onclick="calculateSquareRoot()">√</button>
+          <button class="btn operator" onclick="calculateResult()">=</button>
+          <button class="btn operator" onclick="appendToDisplay('+')">+</button>
+        </div>
+      </div>
+
+  <script>
+    function appendToDisplay(value) {
+      const display = document.getElementById("display");
+      display.value += value;
+    }
+
+    function calculateResult() {
+      const display = document.getElementById("display");
+      try {
+        display.value = eval(display.value);
+      } catch (error) {
+        display.value = "Error";
+      }
+    }
+
+    function clearDisplay() {
+      const display = document.getElementById("display");
+      display.value = "";
+    }
+
+    function deleteLastChar() {
+      const display = document.getElementById("display");
+      display.value = display.value.slice(0, -1);
+    }
+
+    function toggleSign() {
+      const display = document.getElementById("display");
+      if (display.value !== "" && display.value !== "Error") {
+        display.value = -parseFloat(display.value);
+      }
+    }
+
+    function calculateSquareRoot() {
+      const display = document.getElementById("display");
+      if (display.value !== "" && display.value !== "Error") {
+        const value = parseFloat(display.value);
+        if (value >= 0) {
+          display.value = Math.sqrt(value);
+        } else {
+          display.value = "Error";
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Most Frequent Element Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+    .container {
+      width: 400px;
+      border: 2px solid #f9b50a;
+      border-radius: 10px;
+      padding: 50px 80px;
+      text-align: center;
+      margin: 100px auto;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+      background-color: #f9f9f9;
+    }
+    h2 {
+      color: #cb9815;
+      margin-bottom: 40px;
+    }
+    label {
+      display: block;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #f9b50a;
+      color: #fff;
+      transition: background-color 0.2s;
+    }
+    .btn:hover {
+      background-color: #b9953aad;
+    }
+    .result {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Most Frequent Element Finder</h2>
+    <label for="inputArray">Input Array:</label>
+    <input type="text" id="inputArray" placeholder="Enter array elements separated by commas">
+    <button class="btn" onclick="findAndDisplayMostFrequentElement()">Find Most Frequent Element</button>
+    <p class="result" id="outputElement">Most Frequent Element: <span id="resultText"></span></p>
+  </div>
+
+  <script>
+    function findMostFrequentElement(arr) {
+      const frequencyMap = {};
+      let maxFrequency = 0;
+      let mostFrequentElement;
+
+      for (const num of arr) {
+        frequencyMap[num] = (frequencyMap[num] || 0) + 1;
+
+        if (frequencyMap[num] > maxFrequency) {
+          maxFrequency = frequencyMap[num];
+          mostFrequentElement = num;
+        }
+      }
+
+      return mostFrequentElement;
+    }
+
+    function findAndDisplayMostFrequentElement() {
+      const inputArray = document.getElementById("inputArray").value;
+      const arr = inputArray.split(',').map(item => parseInt(item.trim(), 10));
+
+      if (arr.some(isNaN)) {
+        alert("Please enter a valid array of numbers separated by commas.");
+        return;
+      }
+
+      const outputElement = findMostFrequentElement(arr);
+      document.getElementById("resultText").textContent = outputElement;
+      document.getElementById("outputElement").style.display = "block";
+    }
+  </script>
+</body>
+</html>
